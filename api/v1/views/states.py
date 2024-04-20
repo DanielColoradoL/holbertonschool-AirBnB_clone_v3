@@ -22,7 +22,7 @@ def create_state():
     """creates a state in the database"""
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
-        
+
     req_data = request.get_json()
     if req_data is None:
         abort(400, "Not a JSON")
@@ -60,6 +60,10 @@ def delete_state(state_id):
 @app_views.route("/states/<state_id>", strict_slashes=False, methods=["PUT"])
 def update_state(state_id):
     """updates data for a state"""
+
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
+
     obj = storage.get(State, state_id)
     if not obj:
         return abort(404)
