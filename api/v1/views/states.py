@@ -9,11 +9,12 @@ from api.v1.views import app_views
 
 class_name = "State"
 
+
 @app_views.route("/states", strict_slashes=False)
 def fetch_all_states():
     """Returns all states"""
     db_response = storage.all(class_name)
-    all_states = [ state.to_dict() for state in db_response.values()]
+    all_states = [state.to_dict() for state in db_response.values()]
     return all_states
 
 
@@ -32,7 +33,6 @@ def create_state():
     new_state = State(name=req_data.get("name"))
     new_state.save()
     return new_state.to_dict(), 201
-    
 
 
 @app_views.route("/states/<state_id>", strict_slashes=False, methods=["GET"])
@@ -45,7 +45,9 @@ def fetch_state(state_id):
     return jsonify(res.to_dict())
 
 
-@app_views.route("/states/<state_id>", strict_slashes=False, methods=["DELETE"])
+@app_views.route("/states/<state_id>",
+                 strict_slashes=False,
+                 methods=["DELETE"])
 def delete_state(state_id):
     """deletes data for a single state"""
     obj = storage.get(State, state_id)
@@ -67,7 +69,7 @@ def update_state(state_id):
     req_data = request.get_json()
     if not req_data:
         return abort(400, "Not a JSON")
-    
+
     for key, val in req_data.items():
         if key not in ["id", "created_at", "updated_at"]:
             setattr(obj, key, val)
