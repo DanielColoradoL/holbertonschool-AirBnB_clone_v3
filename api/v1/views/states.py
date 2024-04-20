@@ -23,11 +23,11 @@ def create_state():
     """creates a state in the database"""
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
-        
+
     req_data = request.get_json()
     if req_data is None:
         abort(400, "Not a JSON")
-    
+
     if "name" not in req_data:
         abort(400, "Missing name")
     new_state = State(name=req_data.get("name"))
