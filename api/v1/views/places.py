@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module contains routes for state resource"""
+"""Module contains routes for place resource"""
 
 from flask import jsonify, abort, request
 from models import storage
@@ -21,7 +21,7 @@ def fetch_all_places():
 
 
 @app_views.route("/cities/<city_id>/places", strict_slashes=False)
-def fetch_all_places(city_id):
+def fetch_city_places(city_id):
     """Returns all places"""
 
     res = storage.get(City, city_id)
@@ -90,8 +90,8 @@ def delete_place(place_id):
 
 
 @app_views.route("/places/<place_id>", strict_slashes=False, methods=["PUT"])
-def update_state(place_id):
-    """updates data for a state"""
+def update_place(place_id):
+    """updates data for a place"""
 
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
