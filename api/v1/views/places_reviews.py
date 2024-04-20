@@ -25,6 +25,7 @@ def fetch_place_reviews(place_id):
     all_reviews = [review.to_dict() for review in reviews]
     return jsonify(all_reviews)
 
+
 @app_views.route("/reviews/<review_id>", strict_slashes=False)
 def fetch_review(review_id):
     """Returns a review given an id"""
