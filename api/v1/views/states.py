@@ -21,16 +21,15 @@ def fetch_all_states():
 def create_state():
     """creates a state in the database"""
     req_data = request.get_json()
-    if not req_data:
-        return abort(400, "Not a JSON")
+    if req_data is None:
+        abort(400, "Not a JSON")
     
-    state_name = req_data.get("name")
-    if not state_name:
-        return abort(400, "Missing name")
+    if "name" not in req_data:
+        abort(400, "Missing name")
     
-    new_state = State({"name": state_name})
+    new_state = State({"name": req_data.get("name")})
     new_state.save()
-    return jsonify(new_state.to_dict()), 201
+    return new_state.to_dict(), 201
     
 
 
