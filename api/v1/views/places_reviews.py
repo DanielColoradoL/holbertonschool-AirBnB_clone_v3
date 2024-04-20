@@ -9,7 +9,7 @@ from models.review import Review
 from api.v1.views import app_views
 
 
-class_name = "Place"
+class_name = "Review"
 
 
 @app_views.route("/places/<place_id>/reviews", strict_slashes=False)
@@ -40,7 +40,7 @@ def fetch_review(review_id):
                  strict_slashes=False,
                  methods=["POST"])
 def create_place_review(place_id):
-    """creates a place in the database"""
+    """creates a review for a place in the database"""
 
     place = storage.get(Place, place_id)
     if not place:
@@ -72,7 +72,7 @@ def create_place_review(place_id):
 @app_views.route("/reviews/<review_id>",
                  strict_slashes=False,
                  methods=["DELETE"])
-def delete_place(review_id):
+def delete_review(review_id):
     """deletes a review"""
     obj = storage.get(Review, review_id)
     if not obj:
@@ -86,8 +86,8 @@ def delete_place(review_id):
 @app_views.route("/reviews/<review_id>",
                  strict_slashes=False,
                  methods=["PUT"])
-def review(review_id):
-    """updates data for a place"""
+def update_review(review_id):
+    """updates data for a review"""
 
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
