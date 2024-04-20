@@ -21,15 +21,16 @@ def fetch_all_states():
 @app_views.route("/states", strict_slashes=False, methods=["POST"])
 def create_state():
     """creates a state in the database"""
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
+        
     req_data = request.get_json()
-    if not req_data:
-        return abort(400, "Not a JSON")
-
-    state_name = req_data.get("name")
-    if not state_name:
-        return abort(400, "Missing name")
-
-    new_state = State({"name": state_name})
+    if req_data is None:
+        abort(400, "Not a JSON")
+    
+    if "name" not in req_data:
+        abort(400, "Missing name")
+    new_state = State(name=req_data.get("name"))
     new_state.save()
     return new_state.to_dict(), 201
 
@@ -41,7 +42,7 @@ def fetch_state(state_id):
     if not res:
         abort(404)
 
-    return res.to_dict()
+    return jsonify(res.to_dict())
 
 
 @app_views.route("/states/<state_id>",
@@ -75,4 +76,4 @@ def update_state(state_id):
     obj.save()
     storage.reload()
     updated = storage.get(State, state_id)
-    return updated.to_dict(), 200
+    return jsonify(updated.to_dict()), 200
