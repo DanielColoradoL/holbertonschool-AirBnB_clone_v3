@@ -62,6 +62,10 @@ def delete_state(state_id):
 @app_views.route("/states/<state_id>", strict_slashes=False, methods=["PUT"])
 def update_state(state_id):
     """updates data for a state"""
+
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
+
     obj = storage.get(State, state_id)
     if not obj:
         return abort(404)
