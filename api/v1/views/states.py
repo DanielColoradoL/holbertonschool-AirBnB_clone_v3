@@ -26,8 +26,7 @@ def create_state():
     
     if "name" not in req_data:
         abort(400, "Missing name")
-    
-    new_state = State({"name": req_data.get("name")})
+    new_state = State(name=req_data.get("name"))
     new_state.save()
     return new_state.to_dict(), 201
     
