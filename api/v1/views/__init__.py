@@ -12,4 +12,5 @@ from api.v1.views.index import *
 from api.v1.views.states import * # noqa
 from api.v1.views.amenities import * # noqa
 from api.v1.views.users import * # noqa
-from api.v1.views import * #noqa
+from api.v1.views.places import * #noqa
+from api.v1.views.places_reviews import * #noqa
