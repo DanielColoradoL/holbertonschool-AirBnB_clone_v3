@@ -36,7 +36,9 @@ def create_amenity():
     return new_amenity.to_dict(), 201
 
 
-@app_views.route("/amenities/<amenity_id>", strict_slashes=False, methods=["GET"])
+@app_views.route("/amenities/<amenity_id>",
+                 strict_slashes=False,
+                 methods=["GET"])
 def fetch_amenity(amenity_id):
     """returns data for a single amenity"""
     res = storage.get(Amenity, amenity_id)
@@ -60,7 +62,9 @@ def delete_amenity(amenity_id):
     return jsonify({}), 200
 
 
-@app_views.route("/amenities/<amenity_id>", strict_slashes=False, methods=["PUT"])
+@app_views.route("/amenities/<amenity_id>",
+                 strict_slashes=False,
+                 methods=["PUT"])
 def update_amenity(amenity_id):
     """updates data for a state"""
 
