@@ -20,6 +20,9 @@ def fetch_all_states():
 @app_views.route("/states", strict_slashes=False, methods=["POST"])
 def create_state():
     """creates a state in the database"""
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
+        
     req_data = request.get_json()
     if req_data is None:
         abort(400, "Not a JSON")
