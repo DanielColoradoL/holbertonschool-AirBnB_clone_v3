@@ -31,14 +31,17 @@ class TestFileStorageDocs(unittest.TestCase):
         cls.fs_f = inspect.getmembers(FileStorage, inspect.isfunction)
 
     def test_pycodestyle_conformance_file_storage(self):
-        """Test that models/engine/file_storage.py conforms to pycodestyle."""
+        """
+        Test that models/engine/file_storage.py conforms to pycodestyle.
+        """
         pycodestyles = pycodestyle.StyleGuide(quiet=True)
         result = pycodestyles.check_files(['models/engine/file_storage.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
     def test_pycodestyle_conformance_test_file_storage(self):
-        """Test tests/test_models/test_file_storage.py conforms to pycodestyle."""
+        """Test tests/test_models/test_file_storage.py conforms to
+        pycodestyle."""
         pycodestyles = pycodestyle.StyleGuide(quiet=True)
         result = pycodestyles.check_files(['tests/test_models/test_engine/\
 test_file_storage.py'])
