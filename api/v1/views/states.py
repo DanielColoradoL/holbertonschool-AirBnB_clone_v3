@@ -30,7 +30,7 @@ def create_state():
     
     new_state = State({"name": state_name})
     new_state.save()
-    return new_state.to_dict(), 201
+    return jsonify(new_state.to_dict()), 201
     
 
 
@@ -41,7 +41,7 @@ def fetch_state(state_id):
     if not res:
         abort(404)
 
-    return res.to_dict()
+    return jsonify(res.to_dict())
 
 
 @app_views.route("/states/<state_id>", strict_slashes=False, methods=["DELETE"])
@@ -73,4 +73,4 @@ def update_state(state_id):
     obj.save()
     storage.reload()
     updated = storage.get(State, state_id)
-    return updated.to_dict(), 200
+    return jsonify(updated.to_dict()), 200
