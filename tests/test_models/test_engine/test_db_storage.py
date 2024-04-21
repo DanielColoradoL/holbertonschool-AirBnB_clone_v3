@@ -97,10 +97,8 @@ class TestFileStorage(unittest.TestCase):
         """Test if get method is present in DBStorage"""
         self.assertTrue(hasattr(DBStorage, 'get'),
                         "Method 'count' does not exist in db_storage")
-        storage.reload()
         s = State(**self.attribs)
         s.save()
-        storage.reload()
         output = storage.get(State, s.id)
         self.assertEqual(output, s)
 
