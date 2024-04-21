@@ -67,16 +67,6 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
-    def tests_db_get_fuction(self):
-        """Test if get method is present in DBStorage"""
-        self.assertTrue(hasattr(DBStorage, 'get'),
-                        "Method 'get' does not exist in db_storage")
-
-    def tests_db_count_fuction(self):
-        """Test if count method is present in DBStorage"""
-        self.assertTrue(hasattr(DBStorage, 'count'),
-                        "Method 'count' does not exist in db_storage")
-
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
@@ -96,3 +86,15 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def tests_db_get_fuction(self):
+        """Test if get method is present in DBStorage"""
+        self.assertTrue(hasattr(DBStorage, 'get'),
+                        "Method 'get' does not exist in db_storage")
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def tests_db_count_fuction(self):
+        """Test if count method is present in DBStorage"""
+        self.assertTrue(hasattr(DBStorage, 'count'),
+                        "Method 'count' does not exist in db_storage")
