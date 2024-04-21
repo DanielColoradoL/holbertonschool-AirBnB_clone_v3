@@ -122,9 +122,19 @@ class TestFileStorage(unittest.TestCase):
         """Test if get method is present in DBStorage"""
         self.assertTrue(hasattr(FileStorage, 'get'),
                         "Method 'get' does not exist in db_storage")
+        storage = FileStorage()
+        s = State()
+        s.save()
+        output = storage.get(State, s.id)
+        self.assertTrue(output is not None, "Could not get requested instance")
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def tests_fs_count_fuction(self):
         """Test if count method is present in DBStorage"""
         self.assertTrue(hasattr(FileStorage, 'count'),
                         "Method 'count' does not exist in db_storage")
+        storage = FileStorage()
+        s = State()
+        s.save()
+        count = storage.count(State)
+        self.assertTrue(count > 1, "Instance count not 0")
