@@ -13,6 +13,7 @@ from models.review import Review
 from models.state import State
 from models.user import User
 import pycodestyle
+from models import storage
 
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
@@ -94,13 +95,12 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def tests_db_get_fuction(self):
         """Test if get method is present in DBStorage"""
-        storage = DBStorage()
         storage.reload()
         s = State(**self.attribs)
         s.save()
         storage.reload()
         output = storage.get(State, s.id)
-        self.assertTrue(output is not None, "Could not get instance")
+        self.assertEqual(output, s)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def tests_db_count_fuction(self):
