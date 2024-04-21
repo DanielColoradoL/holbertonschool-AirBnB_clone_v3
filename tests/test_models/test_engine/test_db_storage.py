@@ -94,9 +94,10 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def tests_db_get_fuction(self):
         """Test if get method is present in DBStorage"""
+        storage = DBStorage()
+        storage.reload()
         s = State(**self.attribs)
         s.save()
-        storage = DBStorage()
         storage.reload()
         output = storage.get(State, s.id)
         self.assertTrue(output is not None, "Could not get instance")
