@@ -64,7 +64,7 @@ def create_place(city_id):
 
     new_place = Place(**req_data)
     new_place.save()
-    return jsonify(new_place.to_dict()), 201
+    return new_place.to_dict(), 201
 
 
 @app_views.route("/places/<place_id>", strict_slashes=False, methods=["GET"])
