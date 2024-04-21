@@ -69,6 +69,10 @@ test_db_storage.py'])
 
 
 class TestFileStorage(unittest.TestCase):
+    attribs = {
+        "name": "Gotham"
+    }
+
     """Test the FileStorage class"""
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
@@ -92,9 +96,21 @@ class TestFileStorage(unittest.TestCase):
         """Test if get method is present in DBStorage"""
         self.assertTrue(hasattr(DBStorage, 'get'),
                         "Method 'get' does not exist in db_storage")
+        storage = DBStorage()
+        s = State(**self.attribs)
+        s.save()
+        storage.reload()
+        output = storage.get(State, s.id)
+        self.assertTrue(output is not None, "Could not get instance")
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def tests_db_count_fuction(self):
         """Test if count method is present in DBStorage"""
         self.assertTrue(hasattr(DBStorage, 'count'),
                         "Method 'count' does not exist in db_storage")
+        storage = DBStorage()
+        s = State(**self.attribs)
+        s.save()
+        storage.reload()
+        count = storage.count(State)
+        self.assertTrue(count > 1, "Instance count not 0")
