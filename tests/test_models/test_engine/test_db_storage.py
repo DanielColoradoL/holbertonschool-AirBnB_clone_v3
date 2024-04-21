@@ -2,22 +2,18 @@
 """
 Contains the TestDBStorageDocs and TestDBStorage classes
 """
-
-from datetime import datetime
+import unittest
 import inspect
 import models
 from models.engine import db_storage
 from models.amenity import Amenity
-from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-import json
-import os
 import pycodestyle
-import unittest
+
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
@@ -70,6 +66,16 @@ test_db_storage.py'])
                              "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
+
+    def tests_db_get_fuction(self):
+        """Test if get method is present in DBStorage"""
+        self.assertTrue(hasattr(DBStorage, 'get'),
+                        "Method 'get' does not exist in db_storage")
+
+    def tests_db_count_fuction(self):
+        """Test if count method is present in DBStorage"""
+        self.assertTrue(hasattr(DBStorage, 'count'),
+                        "Method 'count' does not exist in db_storage")
 
 
 class TestFileStorage(unittest.TestCase):
