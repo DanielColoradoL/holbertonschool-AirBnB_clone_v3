@@ -40,7 +40,6 @@ def fetch_city_places(city_id):
 def create_place(city_id):
     """creates a place in the database"""
 
-    city_id = req_data.get("city_id")
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -62,7 +61,8 @@ def create_place(city_id):
     if "name" not in req_data:
         abort(400, "Missing name")
 
-    new_place = Place(**req_data)
+    attribs = {**req_data, "city_id": city_id}
+    new_place = Place(**attribs)
     new_place.save()
     return new_place.to_dict(), 201
 
