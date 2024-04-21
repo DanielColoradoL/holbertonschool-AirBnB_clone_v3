@@ -34,7 +34,7 @@ def fetch_review(review_id):
     if not res:
         abort(404)
 
-    return jsonify(res)
+    return jsonify(res.to_dict())
 
 
 @app_views.route("/places/<place_id>/reviews",
