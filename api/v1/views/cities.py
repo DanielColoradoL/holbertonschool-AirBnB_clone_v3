@@ -52,18 +52,17 @@ def post_city(state_id):
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    try:
-        data = request.get_json()
-        if data is None:
-            abort(400, description="Not a JSON")
-        if "name" not in data.keys():
-            abort(400, description="Missing name")
-        data["state_id"] = state_id
-        obj = City(**data)
-        obj.save()
-        return jsonify(obj.to_dict()), 201
-    except ValueError:
-        abort(400, description="Not a JSON")
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
+    data = request.get_json()
+    if data is None:
+        abort(400, "Not a JSON")
+    if "name" not in data.keys():
+        abort(400, description="Missing name")
+    data["state_id"] = state_id
+    obj = City(**data)
+    obj.save()
+    return jsonify(obj.to_dict()), 201
 
 
 @app_views.route("/cities/<city_id>", methods=["PUT"])
@@ -74,19 +73,18 @@ def update_city(city_id):
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    try:
-        data = request.get_json()
-        if data is None:
-            abort(400, description="Not a JSON")
-        if "name" not in data.keys():
-            abort(400, description="Missing name")
-
-        for key, value in data.items():
-            if key in ["id", "state_id", "created_at", "updated_at"]:
-                continue
-            setattr(city, key, value)
-
-        city.save()
-        return jsonify(city.to_dict()), 200
-    except ValueError:
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
+    data = request.get_json()
+    if data is None:
         abort(400, description="Not a JSON")
+    if "name" not in data.keys():
+        abort(400, description="Missing name")
+
+    for key, value in data.items():
+        if key in ["id", "state_id", "created_at", "updated_at"]:
+            continue
+        setattr(city, key, value)
+
+    city.save()
+    return jsonify(city.to_dict()), 200
