@@ -70,6 +70,16 @@ test_file_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    def tests_fs_get_fuction(self):
+        """Test if get method is present in DBStorage"""
+        self.assertTrue(hasattr(FileStorage, 'get'),
+                        "Method 'get' does not exist in db_storage")
+
+    def tests_fs_count_fuction(self):
+        """Test if count method is present in DBStorage"""
+        self.assertTrue(hasattr(FileStorage, 'count'),
+                        "Method 'count' does not exist in db_storage")
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
