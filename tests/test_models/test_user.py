@@ -28,7 +28,9 @@ class TestUserDocs(unittest.TestCase):
                          "Found code style errors (and warnings).")
 
     def test_pycodestyle_conformance_test_user(self):
-        """Test that tests/test_models/test_user.py conforms to pycodestyle."""
+        """
+        Test that tests/test_models/test_user.py conforms to pycodestyle.
+        """
         pycodestyles = pycodestyle.StyleGuide(quiet=True)
         result = pycodestyles.check_files(['tests/test_models/test_user.py'])
         self.assertEqual(result.total_errors, 0,

@@ -20,7 +20,9 @@ class TestConsoleDocs(unittest.TestCase):
                          "Found code style errors (and warnings).")
 
     def test_pycodestyle_conformance_test_console(self):
-        """Test that tests/test_console.py conforms to pycodestyle."""
+        """
+        Test that tests/test_console.py conforms to pycodestyle.
+        """
         pycodestyles = pycodestyle.StyleGuide(quiet=True)
         result = pycodestyles.check_files(['tests/test_console.py'])
         self.assertEqual(result.total_errors, 0,
