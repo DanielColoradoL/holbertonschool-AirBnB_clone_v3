@@ -109,9 +109,10 @@ class TestFileStorage(unittest.TestCase):
         """Test if count method is present in DBStorage"""
         self.assertTrue(hasattr(DBStorage, 'count'),
                         "Method 'count' does not exist in db_storage")
+        storage.reload()
         s = State(**self.attribs)
         s.save()
-        storage = DBStorage()
+        # storage = DBStorage()
         storage.reload()
         count = storage.count(State)
-        self.assertTrue(count > 1, "Instance count not 0")
+        self.assertTrue(count > 0, "Instance count not 0")
